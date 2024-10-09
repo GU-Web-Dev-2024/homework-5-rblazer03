@@ -142,14 +142,13 @@
         ];
         // Add your JavaScript code here.
         const artworks = document.querySelectorAll("art-panel");
-
+        
         artworks.forEach(item => {
             item.addEventListener("click", viewArt);
         });
 
-        function viewArt() {
-            let panel = document.getElementsByClassName("art-panel");
-            panel.style.setProperty("background-color", "green");
+        function viewArt(event) {
+            event.target.style.backgroundColor = "green";
             document.getElementById("counter").innerHTML = "Artworks Viewed: 1";
         }
         // Later, move this to an external JavaScript file for better organization.
