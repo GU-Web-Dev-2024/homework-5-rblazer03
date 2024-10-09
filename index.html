@@ -158,12 +158,12 @@
         // adding new artwork
         document.getElementById("add-art-button").addEventListener("click", createArt);
 
-        function createArt() {
+        function createArt(newArtworks) {
 
             const newArt = document.createElement("div");
             newArt.className = "art-panel";
-
-            //need to add event handler for dynamic object
+            newArt.img = newArtworks.img; //??
+            newArt.textContent = newArtworks.title + " by " + newArtworks.artist; //??
             newArt.addEventListener("click", viewArt);
 
             document.getElementById("art-grid").appendChild(newArt);
