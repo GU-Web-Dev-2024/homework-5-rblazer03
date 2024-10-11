@@ -146,7 +146,8 @@
         const counter = document.getElementById("counter");
         const add = document.getElementById("add-art-button");
         let views = 1;
-        let nextArt = 0;
+        let randArray = [0,1,2,3,4,5,6,7,8,9]
+        // let nextArt = 0;
         
         // viewing artwork
         for (let i = 0; i < artworks.length; i++) {
@@ -169,27 +170,29 @@
         add.addEventListener("click", createArt);
 
         function createArt() {
-
             const newArt = document.createElement("div");
             newArt.className = "art-panel";
 
+            let nextArt = Math.floor(Math.random() * randArray.length);
+
             // create and append image of artwork
             const image = document.createElement("img");
-            image.src = newArtworks[nextArt].img;
-            image.alt = newArtworks[nextArt].title;
+            image.src = newArtworks[randArray[nextArt]].img;
+            image.alt = newArtworks[randArray[nextArt]].title;
             newArt.appendChild(image);
 
             // create and append paragraph with title and artist
             const para = document.createElement("p");
-            para.textContent = newArtworks[nextArt].title + " by " + newArtworks[nextArt].artist;
+            para.textContent = newArtworks[randArray[nextArt]].title + " by " + newArtworks[randArray[nextArt]].artist;
             newArt.appendChild(para);
 
             newArt.addEventListener("click", viewArt);
-            nextArt++;
             document.getElementsByClassName("art-grid")[0].appendChild(newArt);
-            console.log(nextArt);
 
-            if(nextArt == newArtworks.length){
+            randArray.splice(nextArt, 1);
+            nextArt++;
+
+            if(randArray.length == 0){
                 add.removeEventListener("click", createArt);
             }
         }
