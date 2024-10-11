@@ -140,28 +140,33 @@
             { title: 'Water Lilies', artist: 'Claude Monet', img: 'https://via.placeholder.com/200' },
             { title: 'Starry Night Over the Rhône', artist: 'Vincent van Gogh', img: 'https://via.placeholder.com/200' }
         ];
-        // Add your JavaScript code here.
 
-        // viewing artwork
+        // variables
         const artworks = document.getElementsByClassName("art-panel");
+        const counter = document.getElementById("counter");
+        const add = document.getElementById("add-art-button");
         let views = 1;
         let nextArt = 0;
         
+        // viewing artwork
         for (let i = 0; i < artworks.length; i++) {
             artworks[i].addEventListener("click", viewArt);
             
         }
 
         function viewArt(event) {
-            console.log("test");
-            event.target.style.backgroundColor = "green";
-            document.getElementById("counter").innerHTML = "Artworks Viewed: " + views;
+            // prevents p and img from being clicked
+            if(event.target !== this){
+                return;
+            }
+            event.target.style.backgroundColor = "lightgreen";
+            counter.innerHTML = "Artworks Viewed: " + views;
             views++;
-            document.getElementById("counter");
+            event.target.removeEventListener("click", viewArt);
         }
 
         // adding new artwork
-        document.getElementById("add-art-button").addEventListener("click", createArt);
+        add.addEventListener("click", createArt);
 
         function createArt() {
 
@@ -178,12 +183,15 @@
             const para = document.createElement("p");
             para.textContent = newArtworks[nextArt].title + " by " + newArtworks[nextArt].artist;
             newArt.appendChild(para);
-            
+
             newArt.addEventListener("click", viewArt);
             nextArt++;
-            // add stop method
-
             document.getElementsByClassName("art-grid")[0].appendChild(newArt);
+            console.log(nextArt);
+
+            if(nextArt == newArtworks.length){
+                add.removeEventListener("click", createArt);
+            }
         }
 
         // resetting gallery
@@ -191,10 +199,13 @@
 
         function resetArt(){
             views = 1;
-            document.getElementById("counter").innerHTML = "Artworks Viewed: 0";
+            nextArt = 0;
+            counter.innerHTML = "Artworks Viewed: 0";
             for (let i = 0; i < artworks.length; i++) {
                 artworks[i].style.backgroundColor = "#eee";
+                artworks[i].addEventListener("click", viewArt);
             }
+            add.addEventListener("click", createArt);
         }
 
         // Later, move this to an external JavaScript file for better organization.
