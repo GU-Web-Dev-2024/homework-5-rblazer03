@@ -156,6 +156,7 @@
             event.target.style.backgroundColor = "green";
             document.getElementById("counter").innerHTML = "Artworks Viewed: " + views;
             views++;
+            document.getElementById("counter");
         }
 
         // adding new artwork
@@ -170,6 +171,16 @@
             newArt.addEventListener("click", viewArt);
 
             document.getElementById("art-grid")[0].appendChild(newArt);
+        }
+
+        // resetting gallery
+        document.getElementById("reset-button").addEventListener("click", resetArt)
+        function resetArt(){
+            views = 1;
+            document.getElementById("counter").innerHTML = "Artworks Viewed: 0";
+            for (let i = 0; i < artworks.length; i++) {
+                artworks[i].style.backgroundColor = "#eee";
+            }
         }
 
         // Later, move this to an external JavaScript file for better organization.
