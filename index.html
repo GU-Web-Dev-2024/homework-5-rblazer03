@@ -142,6 +142,7 @@
         ];
 
         // variables
+        const gallery = document.getElementsByClassName("art-grid")[0];
         const artworks = document.getElementsByClassName("art-panel");
         const counter = document.getElementById("counter");
         const add = document.getElementById("add-art-button");
@@ -187,7 +188,7 @@
             newArt.appendChild(para);
 
             newArt.addEventListener("click", viewArt);
-            document.getElementsByClassName("art-grid")[0].appendChild(newArt);
+            gallery.appendChild(newArt);
 
             randArray.splice(nextArt, 1);
             nextArt++;
@@ -203,12 +204,16 @@
         function resetArt(){
             views = 1;
             nextArt = 0;
+            randArray = [0,1,2,3,4,5,6,7,8,9]
             counter.innerHTML = "Artworks Viewed: 0";
             for (let i = 0; i < artworks.length; i++) {
                 artworks[i].style.backgroundColor = "#eee";
                 artworks[i].addEventListener("click", viewArt);
             }
             add.addEventListener("click", createArt);
+            for(let j = artworks.length; j > 3; j--) {
+                gallery.removeChild(gallery.lastElementChild);
+            }
         }
 
         // Later, move this to an external JavaScript file for better organization.
