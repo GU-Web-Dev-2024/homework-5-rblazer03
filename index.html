@@ -143,30 +143,33 @@
         // Add your JavaScript code here.
 
         // viewing artwork
-        const artworks = document.querySelectorAll("art-panel");
+        const artworks = document.getElementsByClassName("art-panel");
+        let views = 1;
         
-        artworks.forEach(item => {
-            item.addEventListener("click", viewArt);
-        });
+        for (let i = 0; i < artworks.length; i++) {
+            artworks[i].addEventListener("click", viewArt);
+            
+        }
 
         function viewArt(event) {
             console.log("test");
             event.target.style.backgroundColor = "green";
-            document.getElementById("counter").innerHTML = "Artworks Viewed: 1";
+            document.getElementById("counter").innerHTML = "Artworks Viewed: " + views;
+            views++;
         }
 
         // adding new artwork
         document.getElementById("add-art-button").addEventListener("click", createArt);
 
-        function createArt(newArtworks) {
+        function createArt() {
 
             const newArt = document.createElement("div");
             newArt.className = "art-panel";
-            newArt.img = newArtworks.img; //??
-            newArt.textContent = newArtworks.title + " by " + newArtworks.artist; //??
+            //newArt.img = newArtworks.img; //??
+            newArt.textContent = newArtworks[1].title + " by " + newArtworks[1].artist; //??
             newArt.addEventListener("click", viewArt);
 
-            document.getElementById("art-grid").appendChild(newArt);
+            document.getElementById("art-grid")[0].appendChild(newArt);
         }
 
         // Later, move this to an external JavaScript file for better organization.
