@@ -145,6 +145,7 @@
         // viewing artwork
         const artworks = document.getElementsByClassName("art-panel");
         let views = 1;
+        let nextArt = 0;
         
         for (let i = 0; i < artworks.length; i++) {
             artworks[i].addEventListener("click", viewArt);
@@ -166,15 +167,28 @@
 
             const newArt = document.createElement("div");
             newArt.className = "art-panel";
-            //newArt.img = newArtworks.img; //??
-            newArt.textContent = newArtworks[1].title + " by " + newArtworks[1].artist; //??
-            newArt.addEventListener("click", viewArt);
 
-            document.getElementById("art-grid")[0].appendChild(newArt);
+            // create and append image of artwork
+            const image = document.createElement("img");
+            image.src = newArtworks[nextArt].img;
+            image.alt = newArtworks[nextArt].title;
+            newArt.appendChild(image);
+
+            // create and append paragraph with title and artist
+            const para = document.createElement("p");
+            para.textContent = newArtworks[nextArt].title + " by " + newArtworks[nextArt].artist;
+            newArt.appendChild(para);
+            
+            newArt.addEventListener("click", viewArt);
+            nextArt++;
+            // add stop method
+
+            document.getElementsByClassName("art-grid")[0].appendChild(newArt);
         }
 
         // resetting gallery
         document.getElementById("reset-button").addEventListener("click", resetArt)
+
         function resetArt(){
             views = 1;
             document.getElementById("counter").innerHTML = "Artworks Viewed: 0";
